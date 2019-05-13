@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    return value1 + value2;
+    return (value1 + value2);
 }
 
 
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.substring(7,value.length-1);
+    return (value.slice(7, value.length-1));
 }
 
 
@@ -84,7 +84,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    return value[0];
+    return(value[0]);
 }
 
 /**
@@ -99,7 +99,8 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    return value.trim();
+    value = value.trimLeft()
+    return (value.trimRight());
 }
 
 /**
@@ -114,7 +115,8 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    return value.repeat(count);
+
+    return(value.repeat(count));
 }
 
 /**
@@ -130,7 +132,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    return str.replace(value,"");
+    return(str.replace(value, ''));
 }
 
 /**
@@ -145,7 +147,8 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    return str.substring(1,str.length-1);
+    str = str.replace('<', '');
+    return(str.replace('>', ''));
 }
 
 
@@ -160,7 +163,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    return str.toUpperCase();
+    return(str.toUpperCase());
 }
 
 /**
@@ -174,7 +177,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    return str.split(';');
+    return(str.split(';'));
 }
 
 /**
@@ -201,21 +204,8 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    let str='';
-    let hor_line = '─';
-    let lt_cor = '┌';
-    let rt_cor = '┐';
-    let ver_line = '│';
-    let lb_cor = '└';
-    let rb_cor = '┘';
-    let space = ' ';
-    if (width>1 && height>1){
-      let line=ver_line+space.repeat(width-2)+ver_line+'\n';
-      str+=lt_cor+hor_line.repeat(width-2)+rt_cor+'\n';
-      str+=line.repeat(height-2)+lb_cor;
-      str+=hor_line.repeat(width-2)+rb_cor+'\n';
-    }
-    return str;
+    let dashStr = '─'.repeat(width - 2);
+    return `┌${dashStr}┐\n` + `│${' '.repeat(width - 2)}│\n`.repeat(height - 2) + `└${dashStr}┘\n`;
 }
 
 
@@ -235,9 +225,9 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    return (str.replace(/[a-zA-Z]/g, function (c) {
+    return str.replace(/[a-zA-Z]/g, function (c) {
         return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
-    }));
+    });
 }
 
 /**
@@ -254,9 +244,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    if (value !== null){
-        return (typeof value === "string" || typeof value == "object" && value.constructor === String);}
-        return false;
+    return (value ? typeof value.valueOf() == 'string' : false);
 }
 
 
@@ -285,11 +273,9 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    let arr = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
-     'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
-     'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
-     'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
-    return arr.indexOf(value);
+    let cards = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    let suits = ['♣', '♦', '♥', '♠'];
+    return cards.indexOf(value.slice(0, -1)) + ( suits.indexOf(value.slice(-1)) * cards.length);
 }
 
 

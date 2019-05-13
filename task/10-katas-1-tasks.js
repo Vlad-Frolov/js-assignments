@@ -17,35 +17,7 @@
  *  ]
  */
 function createCompassPoints() {
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
-    let points = []
-
-    let curr_azimuth = 0;
-    let getCompassPoint = (abbreviation, azimuth) => {
-        const point = {
-            abbreviation: abbreviation,
-            azimuth: azimuth
-        };
-        curr_azimuth += 11.25;
-
-    return point;
-    }
-    for (let i = 0; i < sides.length; i++) {
-        const side = sides[i];
-        const next = (i == sides.length - 1) ? sides[0] : sides[i + 1];
-        const isEven = !(i % 2);
-
-        points.push(getCompassPoint(`${side}`, curr_azimuth));
-        points.push(getCompassPoint(`${side}b${next}`, curr_azimuth));
-        points.push(getCompassPoint(isEven ? `${side}${side}${next}` : `${side}${next}${side}`, curr_azimuth));
-        points.push(getCompassPoint(isEven ? `${side}${next}b${side}` : `${next}${side}b${side}`, curr_azimuth));
-        points.push(getCompassPoint(isEven ? `${side}${next}` : `${next}${side}`, curr_azimuth));
-        points.push(getCompassPoint(isEven ? `${side}${next}b${next}` : `${next}${side}b${next}`, curr_azimuth));
-        points.push(getCompassPoint(isEven ? `${next}${side}${next}` : `${next}${next}${side}`, curr_azimuth));
-        points.push(getCompassPoint(`${next}b${side}`, curr_azimuth));
-    }
-
-    return points;
+    throw new Error('Not implemented');
 }
 
 
@@ -83,72 +55,7 @@ function createCompassPoints() {
  *   'nothing to do' => 'nothing to do'
  */
 function* expandBraces(str) {
-    const OPEN = '{';
-    const CLOSE = '}';
-    const SEPARATOR = ',';
-    const BLANK = ' ';
-
-    let i = 0;
-    let curLevel = getVariants(0, "{"+str+"}");
-
-    for (let word of curLevel) {
-        yield word;
-    }
-
-   function addToArray(resArr, addStr) {
-        if (!resArr.length) return [addStr];
-        return resArr.map( x => x.concat(addStr))
-    }
-
-    function pushToArray(resArr, addArr) {
-        if (!resArr.length) return addArr;
-        addArr.map( x => resArr.push(x));
-        return resArr;
-    }
-
-    function concatVariants(variants, array) {
-        if (!array.length) return variants;
-        let result = [];
-        for (let variant of variants) {
-            for (let substr of array) {
-                result.push(substr.concat(variant));
-            }
-        }
-    return result;
-}
-function getVariants(startIndex, str) {
-    let curLevel = [];
-    let variants = [];
-    i = startIndex;
-    while (str[i]) {
-        if (str[i] == OPEN) {
-            if (startIndex != i) {
-                variants = addToArray(variants, str.substring(startIndex, i));
-            }
-            variants = concatVariants(getVariants(i + 1, str), variants);
-            startIndex = i + 1;
-        }
-        else if (str[i] == CLOSE) {
-            if (startIndex != i || !variants.length) {
-                variants = concatVariants([str.substring(startIndex, i)], variants);
-            }
-
-            curLevel = pushToArray(curLevel, variants);
-            return curLevel;
-        }
-        else if (str[i] == SEPARATOR && str[i + 1] != BLANK) {
-            if (startIndex != i) {
-                variants = concatVariants([str.substring(startIndex, i)], variants);
-            }
-            curLevel = pushToArray(curLevel, variants);
-            variants = [];
-            startIndex = i + 1;
-        }
-        i++;
-    }
-    if (!curLevel.length) return variants;
-    return curLevel;
-}
+    throw new Error('Not implemented');
 }
 
 
@@ -222,24 +129,7 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    const result = Array(1);
-    result[0] = dominoes.shift();
-
-    let lastLength = 0;
-    while (lastLength != dominoes.length && dominoes.length > 0) {
-        lastLength = dominoes.length;
-        for (let i = 0; i < dominoes.length; i++) {
-            if (result[result.length - 1][1] == dominoes[i][0] && result[result.length - 1][0] != dominoes[i][1]) {
-                result[result.length] = dominoes[i];
-                dominoes.splice(i, 1);
-            } else if (result[result.length - 1][1] == dominoes[i][1] && result[result.length - 1][0] != dominoes[i][1]) {
-                result[result.length] = dominoes[i].reverse();
-                dominoes.splice(i, 1);
-            }
-        }
-    };
-
-    return dominoes.length == 0;
+    throw new Error('Not implemented');
 }
 
 
@@ -263,29 +153,7 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    return nums.reduce((res, elem, index) => {
-        if (res.length > 0) {
-            const last = res[res.length - 1].split('-');
-            if (last.length > 1) {
-                if (elem - parseInt(last[1]) < 2) {
-                    res.pop();
-                    res.push(`${last[0]}-${elem}`);
-                    return res;
-                }
-            }
-
-            if (res.length > 1) {
-                const beforeLast = res[res.length - 2];
-                if (beforeLast.split('-').length == 1 && elem - parseInt(beforeLast) == 2) {
-                    res.pop();
-                    res.push(`${res.pop()}-${elem}`);
-                    return res;
-                }
-            }
-        }
-        res.push(elem.toString());
-        return res;
-}, []).toString();
+    throw new Error('Not implemented');
 }
 
 module.exports = {

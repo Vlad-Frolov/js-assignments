@@ -28,60 +28,7 @@
  *   'NULL'      => false 
  */
 function findStringInSnakingPuzzle(puzzle, searchStr) {
-    puzzle.forEach(elem => elem = elem.split(''));
-
-    function getNeighbours(point) {
-        const neighbours = [];
-
-        if (point.i != 0) {
-            neighbours.push({i: point.i - 1, j: point.j});
-        }
-        if (point.j != 0) {
-            neighbours.push({i: point.i, j: point.j - 1});
-        }
-        if (point.i != puzzle.length - 1) {
-            neighbours.push({i: point.i + 1, j: point.j});
-        }
-        if (point.j != puzzle[0].length - 1) {
-            neighbours.push({i: point.i, j: point.j + 1});
-        }
-
-        return neighbours;
-    }
-
-    function isSnakingString(point, string, trace) {
-        if (string == '') {
-            return true;
-        }
-
-        const neighbours = getNeighbours(point);
-        let newTrace = trace;
-        newTrace.push(point);
-        for (let neighb of neighbours) {
-            if (puzzle[neighb.i][neighb.j] == string[0] &&
-                trace.find(elem => elem.i == neighb.i && elem.j == neighb.j) == undefined &&
-                isSnakingString(neighb, string.slice(1), newTrace))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    const headCandidates = [];
-    for (let i = 0; i < puzzle.length; i++) {
-        for (let j = 0; j < puzzle[0].length; j++) {
-            if (puzzle[i][j] == searchStr[0]) {
-                headCandidates.push({i: i, j: j});
-            }
-        }
-    }
-    for (let candidate of headCandidates) {
-        if (isSnakingString(candidate, searchStr.slice(1), [])) {
-            return true;
-        }
-    }
-    return false;
+    throw new Error('Not implemented');
 }
 
 
@@ -169,30 +116,11 @@ function UrlShortener() {
 UrlShortener.prototype = {
 
     encode: function(url) {
-        let result = new String();
-    	let char1, char2, newChar;
-		for (let i = 0; i < url.length - 1; i += 2) {
-			char1 = url.charCodeAt(i);
-			char2 = url.charCodeAt(i + 1);
-			newChar = (char1 << 8) + char2;
-			result += String.fromCharCode(newChar);
-		}
-		if (url.length % 2 == 1) {
-			result += String.fromCharCode(url.charCodeAt(url.length - 1) << 8);
-		}
-		return result;
+        throw new Error('Not implemented');
     },
     
     decode: function(code) {
-        let result = new String();
-		let char1, char2, oldChar;
-		for (let i = 0; i < code.length; i++) {
-			oldChar = code.charCodeAt(i);
-			char2 = oldChar & 255;
-			char1 = oldChar >> 8;
-			result += String.fromCharCode(char1) + ((char2 == 0) ? '' : String.fromCharCode(char2));
-		}
-		return result;
+        throw new Error('Not implemented');
     } 
 }
 
